@@ -37,4 +37,10 @@ public class Patient {
     @OneToMany(mappedBy = "patient",fetch = FetchType.LAZY,cascade = {REFRESH,MERGE,PERSIST})
     @ToString.Exclude
     private List<Appointment> appointments = new ArrayList<>();
+
+    @Transient
+    private Long hospitalId;
+
+    @Transient
+    private List<Long> departmentsIdList = new ArrayList<>();
 }

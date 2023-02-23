@@ -6,6 +6,8 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static jakarta.persistence.CascadeType.*;
+
 @Entity
 @Getter
 @Setter
@@ -20,10 +22,14 @@ public class Department {
     private Long id;
     @Column(length = 30, unique = true)
     private String name;
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "departments")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "departments",cascade = {DETACH,MERGE,REFRESH,PERSIST})
     @ToString.Exclude
     private List<Doctor> doctors = new ArrayList<>();
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {DETACH,MERGE,REFRESH,PERSIST})
     private Hospital hospital;
+
+    private String image;
+    @Transient
+    private Long hospitalId;
 }
 

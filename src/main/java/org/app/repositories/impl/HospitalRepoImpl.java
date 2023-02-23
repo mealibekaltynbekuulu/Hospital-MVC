@@ -13,7 +13,8 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class HospitalRepoImpl implements HospitalRepo {
+public class
+HospitalRepoImpl implements HospitalRepo {
     @PersistenceContext
     private final EntityManager entityManager;
 
@@ -50,7 +51,7 @@ public class HospitalRepoImpl implements HospitalRepo {
         boolean isDeleted = false;
         try {
             Hospital hospital = entityManager.find(Hospital.class, id);
-            entityManager.remove(entityManager.merge(hospital));
+            entityManager.remove(hospital);
             isDeleted = true;
         } catch (HibernateException e) {
             System.out.println(e.getMessage());

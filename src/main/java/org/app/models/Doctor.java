@@ -6,6 +6,9 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static jakarta.persistence.CascadeType.*;
+import static jakarta.persistence.CascadeType.PERSIST;
+
 @Entity
 @Getter
 @Setter
@@ -29,9 +32,15 @@ public class Doctor {
     @ManyToMany(fetch = FetchType.LAZY)
     @ToString.Exclude
     private List<Department> departments = new ArrayList<>();
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "doctor")
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "doctor",cascade = {DETACH,MERGE,REFRESH,PERSIST})
     @ToString.Exclude
     private List<Appointment> appointments = new ArrayList<>();
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Hospital hospital;
+
+    private String image;
+    @Transient
+    private List<Long> departmentsIdList = new ArrayList<>();
+    @Transient
+    private Long hospitalId;
 }
