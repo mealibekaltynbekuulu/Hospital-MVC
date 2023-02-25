@@ -118,6 +118,82 @@
         </a>
     </div>
 </header>
-<h1>Hospital</h1>
+<div class="max-w-[1000px] m-auto">
+    <div class="m-auto mb-5 block grid-cols-2 justify-between gap-2 border border-gray-200 bg-white shadow-sm md:grid">
+        <a href="#">
+            <img class="h-[250px] w-full object-cover" th:src="${hospital.getImage()}" alt="Hospital Image" />
+        </a>
+        <div class="p-5">
+            <a href="#">
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900" th:text="${hospital.getName()}">Noteworthy technology acquisitions 2021</h5>
+            </a>
+            <p class="mb-3 font-normal text-gray-700" th:text="${hospital.getAddress()}">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+
+
+            <div class="mb-4 flex flex-wrap items-center justify-between">
+                <a href="#" class="inline-flex items-center gap-2 rounded-lg bg-slate-300 px-3 py-2 text-center text-sm font-medium text-black hover:bg-slate-200 focus:outline-none focus:ring-4 focus:ring-slate-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-box-multiple" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M7 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z"></path>
+                        <path d="M17 17v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h2"></path>
+                    </svg>
+                    <span th:text="'Departments : ' +${ departments.size()}"></span>
+                </a>
+                <a href="#" class="inline-flex items-center gap-2 rounded-lg bg-slate-300 px-3 py-2 text-center text-sm font-medium text-black hover:bg-slate-200 focus:outline-none focus:ring-4 focus:ring-slate-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M12 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path>
+                        <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
+                    </svg>
+                    <span th:text="'Doctors : '+${ doctors.size()}"></span>
+                </a>
+                <a href="#" class="inline-flex items-center gap-2 rounded-lg bg-slate-300 px-3 py-2 text-center text-sm font-medium text-black hover:bg-slate-200 focus:outline-none focus:ring-4 focus:ring-slate-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M12 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path>
+                        <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
+                    </svg>
+                    <span th:text="'Patients : '+${patients.size()}"></span>
+                </a>
+            </div>
+
+
+
+            <div class="flex flex-wrap items-center justify-between">
+                <a href="/departments/new" class="inline-flex items-center rounded-lg bg-blue-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300">
+                    Add Department
+                    <svg aria-hidden="true" class="ml-2 -mr-1 h-4 w-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                </a>
+                <a th:href="@{/doctors/{hospitalId}/new(hospitalId=${hospital.getId()})}" class="inline-flex items-center rounded-lg bg-blue-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300">
+                    Add Doctors
+                    <svg aria-hidden="true" class="ml-2 -mr-1 h-4 w-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                </a>
+                <a th:href="@{/patients/{hospitalId}/new(hospitalId=${hospital.getId()})}" class="inline-flex items-center rounded-lg bg-blue-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300">
+                    Add Patients
+                    <svg aria-hidden="true" class="ml-2 -mr-1 h-4 w-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="m-auto">
+        <h3 class="mb-4 text-2xl font-bold underline">Related Departments</h3>
+        <div class="grid grid-cols-1 gap-3 md:grid-cols-3">
+            <div class="max-w-sm rounded-lg border border-gray-200 bg-white p-6 shadow-sm" th:each="department:${departments}">
+                <a th:href="@{/departments/{departmentId}(id=${department.getId()})}">
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900" th:text="${department.getName()}">Noteworthy technology acquisitions 2021</h5>
+                </a>
+                <p class="mb-3 font-normal text-gray-700" th:text=" 'Hospital : ' + ${department.getHospital().getName()}">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+                <a th:href="@{/departments/{departmentId}(departmentId=${department.getId()})}" class="inline-flex items-center rounded-lg bg-blue-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300">
+                    See more
+                    <svg aria-hidden="true" class="ml-2 -mr-1 h-4 w-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                </a>
+            </div>
+
+
+    </div>
+
+
+</div>
 </body>
 </html>

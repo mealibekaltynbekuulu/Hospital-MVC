@@ -27,6 +27,11 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
+    public List<Doctor> getDoctorsByHospitalId(Long id) {
+        return doctorRepo.getDoctorsByHospitalId(id);
+    }
+
+    @Override
     public List<Doctor> getAll() {
         return doctorRepo.getAll();
     }

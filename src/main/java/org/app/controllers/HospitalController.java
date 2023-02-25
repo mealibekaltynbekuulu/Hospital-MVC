@@ -2,7 +2,9 @@ package org.app.controllers;
 
 import org.app.models.Hospital;
 import org.app.services.DepartmentService;
+import org.app.services.DoctorService;
 import org.app.services.HospitalService;
+import org.app.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,11 +18,14 @@ public class HospitalController {
 
     private final HospitalService hospitalService;
     private final DepartmentService departmentService;
-
+    private final PatientService patientService;
+    private final DoctorService doctorService;
     @Autowired
-    public HospitalController(HospitalService hospitalService, DepartmentService departmentService) {
+    public HospitalController(HospitalService hospitalService, DepartmentService departmentService, PatientService patientService, DoctorService doctorService) {
         this.hospitalService = hospitalService;
         this.departmentService = departmentService;
+        this.patientService = patientService;
+        this.doctorService = doctorService;
     }
 
     @GetMapping
@@ -59,7 +64,9 @@ public class HospitalController {
         Hospital hospital = hospitalService.getById(id);
         List<Hospital> hospitals = hospitalService.getAll().stream().filter(x-> !x.getId().equals(id)).toList();
         model.addAttribute("hospital",hospital);
-        model.addAttribute("hospitals",hospitals);
+        model.addAttribute("departments",departmentService.hospitalDepartments(id));
+        model.addAttribute("patients",patientService.getPatientsByHospitalId(id));
+        model.addAttribute("doctors",doctorService.getDoctorsByHospitalId(id));
         return "hospitals/hospital";
     }
 

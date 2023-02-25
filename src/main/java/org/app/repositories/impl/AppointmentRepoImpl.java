@@ -20,12 +20,11 @@ import java.util.List;
 public class AppointmentRepoImpl implements AppointmentRepo {
     @PersistenceContext
     private final EntityManager entityManager;
-    private final DepartmentService departmentService;
+
 
     @Autowired
-    public AppointmentRepoImpl(EntityManager entityManager, DepartmentService departmentService) {
+    public AppointmentRepoImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
-        this.departmentService = departmentService;
     }
 
 

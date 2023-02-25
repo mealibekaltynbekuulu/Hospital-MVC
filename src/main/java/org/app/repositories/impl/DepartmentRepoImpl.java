@@ -3,8 +3,10 @@ package org.app.repositories.impl;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
+import org.app.models.Appointment;
 import org.app.models.Department;
 import org.app.models.Hospital;
+import org.app.repositories.AppointmentRepo;
 import org.app.repositories.DepartmentRepo;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +20,12 @@ import java.util.List;
 public class DepartmentRepoImpl implements DepartmentRepo {
     @PersistenceContext
     private final EntityManager entityManager;
+    private final AppointmentRepo appointmentRepo;
 
     @Autowired
-    public DepartmentRepoImpl(EntityManager entityManager) {
+    public DepartmentRepoImpl(EntityManager entityManager, AppointmentRepo appointmentRepo) {
         this.entityManager = entityManager;
+        this.appointmentRepo = appointmentRepo;
     }
 
     @Override
@@ -54,6 +58,15 @@ public class DepartmentRepoImpl implements DepartmentRepo {
     public void deleteById(Long id) {
         boolean isDeleted = false;
         try{
+            Department department = entityManager.find(Department.class,id);
+            List<Appointment> appointments = department.getHospital().getAppointments();
+            if (appointments != null) {
+                List<Appointment> appointmentList = appointments.stream().filter(s -> s.getDepartment().getId().equals(id)).toList();
+                appointmentList.forEach(s -> appointmentRepo.deleteById(s.getId()));
+            }
+
+            List<Department> departments = department.getHospital().getDepartments();
+            departments.removeIf(s -> s.getId().equals(id));
             entityManager.createQuery("delete from Department d where d.id = :id").setParameter("id",id).executeUpdate();
             isDeleted = true;
         }catch (HibernateException e){

@@ -2,6 +2,7 @@ package org.app.repositories;
 
 import org.app.models.Doctor;
 
+import javax.print.Doc;
 import java.util.List;
 
 public interface DoctorRepo {
@@ -11,4 +12,6 @@ public interface DoctorRepo {
     Doctor getById(Long id);
     void update (Long id, Doctor newDoctor);
     List<Doctor> getDoctorsByDepartmentId(Long id);
+
+    List<Doctor> getDoctorsByHospitalId(Long id);
 }

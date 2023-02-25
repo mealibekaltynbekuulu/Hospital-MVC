@@ -11,4 +11,6 @@ public interface DoctorService {
     Doctor getById(Long id);
     void update (Long id, Doctor newDoctor);
     List<Doctor> getDoctorsByDepartmentId(Long id);
+
+    List<Doctor> getDoctorsByHospitalId(Long id);
 }

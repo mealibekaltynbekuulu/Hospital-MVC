@@ -115,4 +115,16 @@ public class DoctorRepoImpl implements DoctorRepo {
         }
         throw new RuntimeException();
     }
+
+    @Override
+    public List<Doctor> getDoctorsByHospitalId(Long id) {
+        List<Doctor> results = new ArrayList<>();
+        try{
+            results = entityManager.createQuery("select d from Doctor d join d.departments x join x.hospital h where h.id = :id",Doctor.class)
+                    .setParameter("id",id).getResultList();
+        }catch (HibernateException e){
+            throw new RuntimeException(e.getMessage());
+        }
+        return results;
+    }
 }

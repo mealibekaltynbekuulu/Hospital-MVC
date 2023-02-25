@@ -3,6 +3,9 @@ package org.app.repositories.impl;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
+import org.app.models.Appointment;
+import org.app.models.Department;
+import org.app.models.Doctor;
 import org.app.models.Hospital;
 import org.app.repositories.HospitalRepo;
 import org.hibernate.HibernateException;
@@ -50,8 +53,17 @@ HospitalRepoImpl implements HospitalRepo {
     public void deleteById(Long id) {
         boolean isDeleted = false;
         try {
-            entityManager.createQuery("delete from Hospital h where  h.id = :id")
-                    .setParameter("id",id).executeUpdate();
+//            Department department = entityManager.find(Department.class,id);
+//            List<Appointment> appointments = department.getHospital().getAppointments();
+//            if (appointments != null) {
+//                List<Appointment> appointmentList = appointments.stream().filter(s -> s.getDepartment().getId().equals(id)).toList();
+//                appointmentList.forEach(s -> appointmentRepo.deleteById(s.getId()));
+//            }
+//
+//            List<Department> departments = department.getHospital().getDepartments();
+//            departments.removeIf(s -> s.getId().equals(id));
+            Hospital hospital = entityManager.find(Hospital.class,id);
+            entityManager.remove(entityManager.merge(hospital));
             isDeleted = true;
         } catch (HibernateException e) {
             System.out.println(e.getMessage());
