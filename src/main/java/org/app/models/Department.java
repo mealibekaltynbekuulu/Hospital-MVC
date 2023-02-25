@@ -25,7 +25,7 @@ public class Department {
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "departments",cascade = {DETACH,MERGE,REFRESH,PERSIST})
     @ToString.Exclude
     private List<Doctor> doctors = new ArrayList<>();
-    @ManyToOne(cascade = {DETACH,MERGE,REFRESH,PERSIST})
+    @ManyToOne(cascade = {MERGE,REFRESH,PERSIST,DETACH})
     private Hospital hospital;
 
     private String image;

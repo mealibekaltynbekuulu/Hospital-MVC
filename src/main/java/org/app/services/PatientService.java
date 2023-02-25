@@ -10,5 +10,7 @@ public interface PatientService {
     void deleteById(Long id);
     Patient getById(Long id);
     void update (Long id, Patient newPatient);
+    List<Patient> getPatientsByHospitalId(Long id);
+
     List<Patient> getPatientsByDepartmentId(Long id);
 }

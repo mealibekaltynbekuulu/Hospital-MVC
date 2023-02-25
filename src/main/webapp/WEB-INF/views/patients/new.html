@@ -120,14 +120,6 @@
       <option th:value="'FEMALE'" th:text="Female">Female</option>
     </select>
   </div>
-
-  <div class="mb-2 py-2">
-    <label for="countries_multiple" class="mb-2 block text-sm font-medium text-gray-900">Select Departments</label>
-    <select id="countries_multiple" class="block w-full rounded border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500" multiple th:field="*{departmentsIdList}">
-      <option th:each="department : ${departments}" th:value="${department.getId()}" th:text="${department.getName()}">Department Name</option>
-    </select>
-  </div>
-
   <a href="/doctors" class="mr-2 mb-2 bg-red-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-400">Cancel</a>
   <button type="submit" class="mr-2 mb-2 bg-[#0060ff] px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-400">Save</button>
 </form>

@@ -31,10 +31,10 @@ public class Patient {
     private Gender gender;
     @Column(unique = true)
     private String email;
-    @ManyToOne(cascade = ALL)
+    @ManyToOne(cascade = {REFRESH,MERGE,DETACH,PERSIST})
     @JoinColumn(name = "hospital_id")
     private Hospital hospital;
-    @OneToMany(mappedBy = "patient",fetch = FetchType.LAZY,cascade = {REFRESH,MERGE,PERSIST})
+    @OneToMany(mappedBy = "patient",fetch = FetchType.LAZY,cascade = ALL)
     @ToString.Exclude
     private List<Appointment> appointments = new ArrayList<>();
 

@@ -11,6 +11,8 @@ public interface PatientRepo {
     Patient getById(Long id);
     void update (Long id, Patient newPatient);
 
-    List<Patient> getPatientsByDepartmentId(Long id);
+    List<Patient> getPatientsByHospitalId(Long id);
+
+    List<Patient> getpatientsByDepartmentId(Long id);
 }
 

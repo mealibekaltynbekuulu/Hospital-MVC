@@ -50,8 +50,8 @@ HospitalRepoImpl implements HospitalRepo {
     public void deleteById(Long id) {
         boolean isDeleted = false;
         try {
-            Hospital hospital = entityManager.find(Hospital.class, id);
-            entityManager.remove(hospital);
+            entityManager.createQuery("delete from Hospital h where  h.id = :id")
+                    .setParameter("id",id).executeUpdate();
             isDeleted = true;
         } catch (HibernateException e) {
             System.out.println(e.getMessage());

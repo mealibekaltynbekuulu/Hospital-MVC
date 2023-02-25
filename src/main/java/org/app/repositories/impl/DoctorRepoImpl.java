@@ -32,14 +32,14 @@ public class DoctorRepoImpl implements DoctorRepo {
     }
 
     @Override
-    public Doctor save(Long hospitalId,Doctor doctor) {
+    public Doctor save(Long hospitalId, Doctor doctor) {
         try {
             List<Department> departments = new ArrayList<>();
             for (Long id : doctor.getDepartmentsIdList()) {
-                Department department = entityManager.find(Department.class,id);
+                Department department = entityManager.find(Department.class, id);
                 departments.add(department);
             }
-            doctor.setHospital(entityManager.find(Hospital.class,hospitalId));
+            doctor.setHospital(entityManager.find(Hospital.class, hospitalId));
             doctor.setDepartments(departments);
             entityManager.persist(doctor);
         } catch (HibernateException e) {
@@ -52,7 +52,7 @@ public class DoctorRepoImpl implements DoctorRepo {
     public List<Doctor> getAll() {
         List<Doctor> list = new ArrayList<>();
         try {
-            list = entityManager.createQuery("select d from Doctor d").getResultList();
+            list = entityManager.createQuery("select d from Doctor d",Doctor.class).getResultList();
         } catch (HibernateException e) {
             System.out.println(e.getMessage());
         }
@@ -63,8 +63,8 @@ public class DoctorRepoImpl implements DoctorRepo {
     public void deleteById(Long id) {
         boolean isDeleted = false;
         try {
-            Doctor doctor = entityManager.find(Doctor.class, id);
-            entityManager.remove(entityManager.merge(doctor));
+            entityManager.createQuery("delete from Doctor d where d.id = :id")
+                    .setParameter("id",id).executeUpdate();
             isDeleted = true;
         } catch (HibernateException e) {
             System.out.println(e.getMessage());
@@ -107,17 +107,12 @@ public class DoctorRepoImpl implements DoctorRepo {
 
     @Override
     public List<Doctor> getDoctorsByDepartmentId(Long id) {
-        List<Doctor> result = new ArrayList<>();
         try {
-            List<Doctor> doctors = entityManager.createQuery("select d from Doctor d").getResultList();
-            for (Doctor doctor : doctors) {
-                for (Department department : doctor.getDepartments()) {
-                    if(department.getId().equals(id)) result.add(doctor);
-                }
-            }
+            return entityManager.createQuery("select d from Doctor d join d.departments h where h.id=:id", Doctor.class)
+                    .setParameter("id", id).getResultList();
         } catch (HibernateException e) {
             System.out.println(e.getMessage());
         }
-        return result;
+        throw new RuntimeException();
     }
 }

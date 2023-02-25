@@ -1,21 +1,26 @@
 package org.app.controllers;
 
 import org.app.models.Hospital;
+import org.app.services.DepartmentService;
 import org.app.services.HospitalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/hospitals")
 public class HospitalController {
 
     private final HospitalService hospitalService;
+    private final DepartmentService departmentService;
 
     @Autowired
-    public HospitalController(HospitalService hospitalService) {
+    public HospitalController(HospitalService hospitalService, DepartmentService departmentService) {
         this.hospitalService = hospitalService;
+        this.departmentService = departmentService;
     }
 
     @GetMapping
@@ -51,7 +56,10 @@ public class HospitalController {
 
     @GetMapping("/{id}")
     public String getHospital(@PathVariable("id") Long id,Model model){
-        model.addAttribute("hospital",hospitalService.getById(id));
+        Hospital hospital = hospitalService.getById(id);
+        List<Hospital> hospitals = hospitalService.getAll().stream().filter(x-> !x.getId().equals(id)).toList();
+        model.addAttribute("hospital",hospital);
+        model.addAttribute("hospitals",hospitals);
         return "hospitals/hospital";
     }
 

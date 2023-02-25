@@ -29,13 +29,13 @@ public class Doctor {
     private String position;
     @Column(unique = true)
     private String email;
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY,cascade = {REFRESH,MERGE,PERSIST,DETACH})
     @ToString.Exclude
     private List<Department> departments = new ArrayList<>();
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "doctor",cascade = {DETACH,MERGE,REFRESH,PERSIST})
     @ToString.Exclude
     private List<Appointment> appointments = new ArrayList<>();
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER,cascade = {REFRESH,PERSIST,MERGE,DETACH})
     private Hospital hospital;
 
     private String image;

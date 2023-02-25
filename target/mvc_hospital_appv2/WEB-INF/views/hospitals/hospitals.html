@@ -96,20 +96,20 @@
         </a>
     </div>
 </header>
-<div  class="max-w-[1400px] m-auto grid auto-rows-fr grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-    <div class="w-[340px] flex-1 bg-white border border-gray-200 shadow-sm" th:each="hospital:${hospitals}">
+<div class="m-auto grid max-w-[1400px] auto-rows-fr grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <div class="w-[340px] flex-1 border border-gray-200 bg-white shadow-sm" th:each="hospital:${hospitals}">
         <a th:href="@{/hospitals/{id}(id=${hospital.getId()})}">
-            <img th:src="${hospital.getImage()}" alt="Hospital Image" class="w-full h-[200px] object-cover"/>
+            <img th:src="${hospital.getImage()}" alt="Hospital Image" class="h-[200px] w-full object-cover" />
         </a>
         <div class="p-5">
             <a th:href="@{/hospitals/{id}(id=${hospital.getId()})}">
                 <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900" th:text="${hospital.getName()}">Hospital Name</h5>
             </a>
-            <p class="mb-3 font-normal text-gray-700" th:text="${hospital.getAddress()}">Hospital Address</p>
+            <p class="mb-3 font-medium text-gray-700" th:text="${hospital.getAddress()}">Hospital Address</p>
             <div class="flex items-center justify-between">
-                <a th:href="@{/hospitals/{id}(id=${hospital.getId()})}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-[#0060ff] hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300">
+                <a th:href="@{/hospitals/{id}(id=${hospital.getId()})}" class="inline-flex items-center bg-[#0060ff] px-3 py-2 text-center text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
                     See more
-                    <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                    <svg aria-hidden="true" class="ml-2 -mr-1 h-4 w-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                 </a>
                 <a th:href="@{/hospitals/edit/{id}(id=${hospital.getId()})}">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">

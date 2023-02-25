@@ -27,16 +27,16 @@ public class Hospital {
     @Column(length = 100)
     private String address;
     private String image;
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "hospital")
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "hospital",cascade = ALL)
     @ToString.Exclude
     private List<Doctor> doctors = new ArrayList<>();
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "hospital")
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "hospital",cascade = ALL)
     @ToString.Exclude
     private List<Patient> patients = new ArrayList<>();
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "hospital",cascade = ALL)
     @ToString.Exclude
     private List<Department> departments = new ArrayList<>();
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY,cascade = ALL)
     @ToString.Exclude
     private List<Appointment> appointments = new ArrayList<>();
 

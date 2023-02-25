@@ -3,6 +3,7 @@ package org.app.repositories.impl;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
+import org.app.models.Appointment;
 import org.app.models.Department;
 import org.app.models.Hospital;
 import org.app.models.Patient;
@@ -94,18 +95,19 @@ public class PatientRepoImpl implements PatientRepo {
     }
 
     @Override
-    public List<Patient> getPatientsByDepartmentId(Long id) {
-        List<Patient> result = new ArrayList<>();
+    public List<Patient> getPatientsByHospitalId(Long id) {
         try {
-            List<Patient> patients = entityManager.createQuery("select p from Patient p").getResultList();
-            for (Patient patient : patients) {
-                for (Department department : patient.getHospital().getDepartments()) {
-                    if(department.getId().equals(id)) result.add(patient);
-                }
-            }
+            return entityManager.createQuery("select p from Patient p join  p.hospital h where h.id=:id", Patient.class)
+                    .setParameter("id", id).getResultList();
         } catch (HibernateException e) {
             System.out.println(e.getMessage());
         }
-        return result;
+        throw new RuntimeException();
+    }
+
+    @Override
+    public List<Patient> getpatientsByDepartmentId(Long id) {
+        return entityManager.createQuery("select p from Patient p join p.appointments a join a.department d where d.id=:id", Patient.class)
+                .setParameter("id",id).getResultList();
     }
 }
